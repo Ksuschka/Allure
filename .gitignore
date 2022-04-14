@@ -44,5 +44,5 @@ out/
 !**/src/main/**
 !**/src/test/**
 !app-card-delivery.jar
-!build/allure/
-!/build/allure-results/
+!build/allure/*
+!build/allure-results/*
