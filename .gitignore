@@ -2,7 +2,7 @@ Thumbs.db*
 .DS_Store
 HELP.md
 .gradle
-build/*
+build/
 
 ### STS ###
 .apt_generated
@@ -44,5 +44,5 @@ out/
 !**/src/main/**
 !**/src/test/**
 !app-card-delivery.jar
-!build/allure/*
+!build/allure/commandline/*
 !build/allure-results/*
