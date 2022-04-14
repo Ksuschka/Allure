@@ -3,11 +3,10 @@ package ru.netology;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import io.qameta.allure.selenide.AllureSelenide;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.Keys;
 
 import java.time.Duration;
@@ -18,17 +17,20 @@ import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.*;
 import static ru.netology.DataGenerator.generateDate;
 
+@Story("Проверка валидация полей")
+@Feature("Отправка заявки на доставку карты")
+
 public class CardDeliveryTest {
 
-//    @BeforeAll
-//    static void setUpAll() {
-//        SelenideLogger.addListener("allure", new AllureSelenide());
-//    }
-//
-//    @AfterAll
-//    static void tearDownAll() {
-//        SelenideLogger.removeListener("allure");
-//    }
+    @BeforeAll
+    static void setUpAll() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
+    }
+
+    @AfterAll
+    static void tearDownAll() {
+        SelenideLogger.removeListener("allure");
+    }
 
     @BeforeEach
     public void openBrowser() {
@@ -37,7 +39,9 @@ public class CardDeliveryTest {
         Configuration.browserSize = "1920x1080";
     }
 
+
     @Test
+    @DisplayName("Отправка заявки")
     public void shouldApplicationForm() {
 
         $("[data-test-id= 'city'] input").setValue(DataGenerator.generateCity("ru"));
@@ -57,6 +61,7 @@ public class CardDeliveryTest {
     }
 
     @Test
+    @DisplayName("Перенос даты заявки")
     public void shouldDateRescheduling(){
         $("[data-test-id= 'city'] input").setValue(DataGenerator.generateCity("ru"));
         $("[data-test-id= 'date'] input").doubleClick().sendKeys(Keys.BACK_SPACE);
@@ -83,6 +88,7 @@ public class CardDeliveryTest {
     }
 
     @Test
+    @DisplayName("Отправка заявки с буквой Ё в поле Фамилия и имя")
     public void shouldNameLetterE() {
         $("[data-test-id= 'city'] input").setValue(DataGenerator.generateCity("ru"));
         $("[data-test-id= 'date'] input").doubleClick().sendKeys(Keys.BACK_SPACE);
@@ -101,6 +107,7 @@ public class CardDeliveryTest {
     }
 
     @Test
+    @DisplayName("Оправка заявки с указанием номера телефона меньше 11 цифр ")
     public void shouldApplicationFormShortPhone() {
         $("[data-test-id= 'city'] input").setValue(DataGenerator.generateCity("ru"));
         $("[data-test-id= 'date'] input").doubleClick().sendKeys(Keys.BACK_SPACE);
@@ -113,6 +120,7 @@ public class CardDeliveryTest {
                 .shouldHave(text("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678."));
     }
     @Test
+    @DisplayName("Отправка заявки с указанием номера телефона без +7")
     public void shouldApplicationFalsePhone() {
         $("[data-test-id= 'city'] input").setValue(DataGenerator.generateCity("ru"));
         $("[data-test-id= 'date'] input").doubleClick().sendKeys(Keys.BACK_SPACE);
