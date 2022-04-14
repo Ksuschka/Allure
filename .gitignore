@@ -43,3 +43,6 @@ out/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**
 !**/src/test/**
+!app-card-delivery.jar
+!**/build/allure/**
+!**/build/allure-results/**
